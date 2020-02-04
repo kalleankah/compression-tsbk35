@@ -1,6 +1,6 @@
 function [PE, huff] = predictor_vertical(img)
 % Testar prediktorn P(i,j) = X(i-1,j)
-img = int8(padarray(img, [1 1], 128));
+img = int8(padarray(img, [1 0], 128, 'pre'));
 width = size(img,2);
 height = size(img,1);
 n_pixels = width*height;

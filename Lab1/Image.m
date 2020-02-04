@@ -1,6 +1,6 @@
 clear
 tic
-img = imread('images/woodgrain.png');
+img = imread('images/baboon.png');
 probability_matrix = zeros(256,1);
 width = size(img,2);
 height = size(img,1);
