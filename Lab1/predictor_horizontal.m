@@ -15,17 +15,10 @@ end
 clear i j
 
 % Räkna förekomst av varje sampelnivå
-probability_matrix = zeros(256,1);
-X = X - min(min(X)) + 1;
-for i = 1:height
-    for j = 1:width
-        probability_matrix(X(i,j)) = probability_matrix(X(i,j)) + 1;
-    end
-end
-clear i
+[N,~] = ihist(X);
 
 % Beräkna sannolikhet för varje nivå
-probability_matrix = probability_matrix./n_pixels;
+probability_matrix = sum(N,2)./ n_pixels;
 % Ta bort nollelement
 probability_matrix = probability_matrix(find(probability_matrix));
 
