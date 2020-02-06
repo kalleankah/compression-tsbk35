@@ -1,6 +1,6 @@
 clear
 tic
-img = imread('images/baboon.png');
+img = double(imread('images/woodgrain.png'));
 probability_matrix = zeros(256,1);
 width = size(img,2);
 height = size(img,1);
@@ -57,11 +57,11 @@ entropy_pair_horizontal = entropy_custom(probability_matrix_h);
 entropy_pair_vertical = entropy_custom(probability_matrix_v);
 entropy_beting_horizontal = entropy_pair_horizontal - entropy_img;
 entropy_beting_vertical = entropy_pair_vertical - entropy_img;
-entropy_pair_horizontal = entropy_pair_horizontal/2;
-entropy_pair_vertical = entropy_pair_vertical/2;
+entropy_pair_horizontal = entropy_pair_horizontal;
+entropy_pair_vertical = entropy_pair_vertical;
 % Beräkna snittlängd på huffmankodord
-huff_pair_h = huffman(probability_matrix_h)/2;
-huff_pair_v = huffman(probability_matrix_v)/2;
+huff_pair_h = huffman(probability_matrix_h);
+huff_pair_v = huffman(probability_matrix_v);
 
 clear i j height width n_pixels probability_matrix_h probability_matrix_v
 

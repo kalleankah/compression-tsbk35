@@ -1,6 +1,6 @@
 function [PE, huff] = predictor_vertical(img)
 % Testar prediktorn P(i,j) = X(i-1,j)
-img = int8(padarray(img, [1 0], 128, 'pre'));
+img = padarray(img, [1 0], 0.5, 'pre');
 width = size(img,2);
 height = size(img,1);
 n_pixels = width*height;
@@ -19,8 +19,6 @@ clear i j
 
 % Beräkna sannolikhet för varje nivå
 probability_matrix = sum(N,2)./ n_pixels;
-% Ta bort nollelement
-probability_matrix = probability_matrix(find(probability_matrix));
 
 % Beräkna entropi
 PE = entropy_custom(probability_matrix);
