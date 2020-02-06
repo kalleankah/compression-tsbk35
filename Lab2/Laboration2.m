@@ -1,0 +1,42 @@
+clear; clc; tic;
+%% Läser in filen/signalen
+[y, fs] = audioread('heyhey.wav');
+
+% Hitta min/max frekvenser
+highFreq = max(y);
+lowFreq = min(y);
+
+% Välj blockstorlek till mdct
+blockSize = 256;
+
+% Välj storlek på kvantiseringssteg
+quantStep = (highFreq - lowFreq)/32.5;
+
+% Utför transformering på signalen
+yTransformed = mdct(y, blockSize);
+
+% Utför kvantisering på transformkomponenterna
+yQuantized = round(yTransformed/quantStep);
+
+% IC är alla index till värden på kvantiserade komponenter
+[~,~,IC] = unique(yQuantized);
+
+% Reshape till vektorform
+accu = accumarray(IC(:),1);
+
+% Skapa en sannolikhetsmatris
+prob = accu/sum(sum(accu));
+
+% Beräkna datatakt vid huffmankodning
+huff = huffman(prob);
+
+% Avkoda den komprimerade signalen
+yComp = imdct(yQuantized*quantStep);
+
+% Skriv den avkodade signalen till en fil
+%audiowrite('heyhey_compressed.wav', yComp, fs);
+
+% Beräkna SNR
+Snrdb = snr(y, yComp - y);
+
+toc;
